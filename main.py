@@ -10,7 +10,7 @@ from timed_dialog_archiver import TimedDialogArchiver
 dotenv.load_dotenv()
 API_ID = os.getenv("API_ID")
 API_HASH = os.getenv("API_HASH")
-SESSION_NAME="session"
+SESSION_PATH="session/session"
 
 # telegram disconnects the account from every client
 # without this system version
@@ -41,7 +41,7 @@ async def main(
 if __name__ == "__main__":
 
     telegram_client = TelegramClient(
-            session = SESSION_NAME,
+            session = SESSION_PATH,
             api_id = API_ID,
             api_hash = API_HASH,
             system_version = SYSTEM_VERSION)

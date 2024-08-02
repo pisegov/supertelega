@@ -1,6 +1,8 @@
 .DS_Store
 *.session
 *.session-journal
+/session/
 .env
 __pycache__
 /env/
+/docker-compose.yaml
