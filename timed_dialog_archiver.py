@@ -22,19 +22,19 @@ class TimedDialogArchiver:
     async def processDialogs(self, dialogs: List[Dialog]) -> None:
         for dialog in dialogs:
             archived = dialog.archived
-            shouldBeArchived = self.__dialog_filter.filter(dialog)
+            should_be_archived = self.__dialog_filter.check_if_should_be_archived(dialog)
 
-            if archived and shouldBeArchived:
+            if archived and should_be_archived:
                 continue
 
-            if (not archived) and (not shouldBeArchived):
+            if (not archived) and (not should_be_archived):
                 continue
 
-            if (not archived) and shouldBeArchived:
+            if (not archived) and should_be_archived:
                 self.__add_to_archived(dialog)
                 continue
 
-            if archived and (not shouldBeArchived):
+            if archived and (not should_be_archived):
                 self.__add_to_showed(dialog)
                 continue
 

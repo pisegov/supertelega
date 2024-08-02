@@ -6,7 +6,8 @@ TELEGRAM_NOTIFICATIONS_DIALOG_ID = 777000
 # filters which dialogs should be archived
 class DialogFilter:
 
-    def filter(self, dialog: Dialog):
+    # returns True if dialog should be archived
+    def check_if_should_be_archived(self, dialog: Dialog):
        if dialog.is_channel:
            return True
 
@@ -16,7 +17,7 @@ class DialogFilter:
        if dialog.dialog.unread_mark:
            return False
 
-       if dialog.dialog.unread_count > 0:
+       if dialog.is_user and dialog.dialog.unread_count > 0:
            return False
 
        if dialog.dialog.unread_mentions_count > 0:
