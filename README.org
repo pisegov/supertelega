@@ -1,0 +1,62 @@
+#+title: Supertelega
+
+It's like [[https://superhuman.com/][Superhuman]], but for your Telegram.
+
+* Overview
+Supertelega works in a similar way to how [[https://superhuman.com/][Superhuman]] works with your email - automatically archiving every chat with no unread messages every 10 (or whatever you like) seconds, with the exception of pinned chats. Now you can be focused!
+
+#+html:<img src="https://user-images.githubusercontent.com/4231665/204606907-798caeaf-835d-46ec-86e5-69090407363d.PNG" width="200"/>
+
+* Fork modifications
+- Added automatic unarchiving of a chat if there is an unread message, mention, or reaction to your message
+- Logic moved to appropriate classes
+- Removed spam and auto-dm modules
+- Added support for containerization using Docker
+
+* Installation
+** Basic steps
+- Clone the repo
+- Obtain your [[https://core.telegram.org/api/obtaining_api_id][Telegram API key]]
+- Update =.env= file with api id and api hash
+
+** Manually
+- Install the requirements ~pip install -r requirements.txt~
+- Run the app ~python main.py~
+
+** With docker
+*** Create a =docker-compose.yml= configuration file
+Example:
+#+begin_src yaml
+services:
+  app:
+
+    build:
+      context: .
+
+    env_file:
+      - .env
+
+    volumes:
+      - ./session:/app/session
+
+    restart: unless-stopped
+#+end_src
+
+*** Run the container once to log in interactively
+#+begin_src shell
+docker-compose build
+docker-compose run app
+
+# follow the commands to login
+Please enter your phone (or bot token):
+Please enter the code you received:
+Please enter your password:
+
+# stop application after successful login
+#+end_src
+
+*** Run the container as a daemon
+~docker-compose up -d~
+
+** Storing secrets
+You might consider modifying your code to use [[https://docs.docker.com/engine/swarm/secrets/][Docker Secrets]] as a more secure way to store your =api-id= and =api-hash=.
