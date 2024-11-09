@@ -26,6 +26,9 @@ class DialogFilter:
        if dialog.dialog.unread_reactions_count > 0:
            return False
 
+       if (not dialog.archived) and dialog.is_group:
+            return False
+
        return True
 
     # removes Telegram dialog from dialog list
